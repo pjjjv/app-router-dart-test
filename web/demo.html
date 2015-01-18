@@ -33,25 +33,19 @@
     <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
   </head>
 
-  <body unresolved vertical layout center>
-    <div style="width: 600px;">
-        <template is="auto-binding-dart" id="auto-bind">
+  <body unresolved>
         Aaa
-          <app-router mode="hash">
-            <app-route path="/" import="pages/home-page.html" template></app-route>
-            <app-route path="/api" import="pages/api-page.html"></app-route>
-            <app-route path="/databinding/:pathArg1" import="pages/data-binding-page.html"></app-route>
-            <app-route path="/layouts" import="pages/layout-info-page.html"></app-route>
-            <app-route path="/events" import="pages/events-page.html"></app-route>
-            <app-route path="/core-animated-pages" import="pages/core-animated-pages.html" template></app-route>
-            <app-route path="/notes" import="pages/notes-page.html"></app-route>
-            <app-route path="*" import="pages/not-found-page.html" template></app-route>
-          </app-router>
-        </template>
-    </div>
+  <app-router mode="hash">
+    <app-route path="/" import="pages/home-page.html" template></app-route>
+    <app-route path="/api" import="pages/api-page.html"></app-route>
+    <app-route path="/databinding/:pathArg1" import="pages/data-binding-page.html"></app-route>
+    <app-route path="/layouts" import="pages/layout-info-page.html"></app-route>
+    <app-route path="/events" import="pages/events-page.html"></app-route>
+    <app-route path="/core-animated-pages" import="pages/core-animated-pages.html" template></app-route>
+    <app-route path="/notes" import="pages/notes-page.html"></app-route>
+    <app-route path="*" import="pages/not-found-page.html" template></app-route>
+  </app-router>
 
-    <script src="demo.dart" type="application/dart"></script>
-    <!--<script type="application/dart">export 'package:polymer/init.dart';</script>-->
-    <script src="packages/browser/dart.js"></script>
+    <script type="application/dart">export 'package:polymer/init.dart';</script>
   </body>
 </html>
