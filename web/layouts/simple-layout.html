@@ -1,0 +1,46 @@
+
+<!--<link rel="import" href="../bower_components/pushstate-anchor/pushstate-anchor.html">-->
+
+<link rel="import" href="../packages/polymer/polymer.html">
+    <link rel="import" href="../packages/core_elements/core_icons.html">
+    <link rel="import" href="../packages/core_elements/core_toolbar.html">
+    <link rel="import" href="../packages/core_elements/core_item.html">
+    <link rel="import" href="../packages/core_elements/social_icons.html">
+    <link rel="import" href="../packages/core_elements/core_style.html">
+<link rel="import" href="../css/core-style.html">
+
+<polymer-element name="simple-layout" noscript>
+  <template>
+    <core-style ref="layout"></core-style>
+    <style>
+      :host /deep/ core-toolbar {
+        font-size: 1em;
+      }
+      :host /deep/ core-toolbar span {
+        font-size: 1.3em;
+      }
+      :host /deep/ core-toolbar core-item {
+        line-height: 40px;
+      }
+      :host /deep/ core-toolbar core-item:hover,
+      :host /deep/ core-toolbar core-item:focus {
+        text-shadow: 0px 1px 2px #215b90;
+      }
+    </style>
+    <core-toolbar>
+      <span flex>
+        <content select=".title"></content>
+      </span>
+      <core-item icon="home" label="Home"><a is="pushstate-anchor" href="../#/"></a></core-item>
+      <core-item icon="settings" label="API"><a is="pushstate-anchor" href="../#/api"></a></core-item>
+      <core-item icon="polymer" label="Data Binding"><a is="pushstate-anchor" href="../#/databinding/1337?queryParam1=Routing%20with%20Web%20Components!"></a></core-item>
+      <core-item icon="view-quilt" label="Multiple Layouts"><a is="pushstate-anchor" href="../#/layouts"></a></core-item>
+      <core-item icon="info-outline" label="Notes"><a is="pushstate-anchor" href="../#/notes"></a></core-item>
+      <core-item icon="drive-document" label="Example Code"><a href="https://github.com/erikringsmuth/app-router-examples"></a></core-item>
+      <core-item icon="social:post-github" label="GitHub"><a href="https://github.com/erikringsmuth/app-router"></a></core-item>
+    </core-toolbar>
+    <div class="content">
+      <content></content>
+    </div>
+  </template>
+</polymer-element>

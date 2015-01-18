@@ -1,0 +1,123 @@
+<link rel="import" href="../packages/polymer/polymer.html">
+<link rel="import" href="../layouts/scaffold-layout.html">
+<link rel="import" href="../elements/code-block.html">
+<link rel="import" href="../elements/code-snippet.html">
+
+<polymer-element name="events-page" noscript>
+  <template>
+    <scaffold-layout selected="events">
+      <div class="title">Lifecycle Events</div>
+
+      <h2 id="lifecycle-events">lifecycle events <a href="../#/events#lifecycle-events">#</a></h2>
+
+      <p>Lifecycle events let you hook into different stages of the route process.</p>
+
+<code-block>&lt;app-router on-state-change="{{'\{{stateChange}\}'}}"&gt;
+  &lt;app-route path="/" import="/pages/home-page.html" on-activate-route-start="{{'\{{doSomethingCool}\}'}}"&gt;&lt;/app-route&gt;
+  &lt;app-route path="*" import="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+&lt;/app-router&gt;</code-block>
+
+      <h4 id="state-change" class="top-spacing">state-change (attach to app-router) <a href="../#/events#state-change">#</a></h4>
+      <p><code-snippet>state-change</code-snippet> is the first event fired when the URL changes. This is triggered by a <code-snippet>hashchange</code-snippet>,  <code-snippet>popstate</code-snippet>, or full page load. Calling <code-snippet>event.preventDefault()</code-snippet> will prevent the new route from loading.</p>
+<code-block>// event.detail looks like this
+{
+  path: '/new-path'
+}</code-block>
+
+      <h4 id="not-found" class="top-spacing">not-found (attach to app-router) <a href="../#/events#not-found">#</a></h4>
+      <p><code-snippet>not-found</code-snippet> is fired after a <code-snippet>state-change</code-snippet> if no matching route is found.</p>
+<code-block>// event.detail looks like this
+{
+  path: '/new-path'
+}</code-block>
+
+      <h4 id="activate-route-start" class="top-spacing">activate-route-start (attach to app-router or app-route) <a href="../#/events#activate-route-start">#</a></h4>
+      <p><code-snippet>activate-route-start</code-snippet> is fired before the new route is imported or added to the DOM. Calling <code-snippet>event.preventDefault()</code-snippet> will prevent the new route from loading.</p>
+<code-block>// event.detail looks like this
+{
+  path: '/new-path',
+  route: newRoute,
+  oldRoute: oldRoute
+}</code-block>
+
+      <h4 id="before-data-binding" class="top-spacing">before-data-binding (attach to app-router or app-route) <a href="../#/events#before-data-binding">#</a></h4>
+      <p><code-snippet>before-data-binding</code-snippet> is fired after the new route is imported but before it is added to the DOM. It allows you to update the model before it is bound to the custom element or template.</p>
+<code-block>// event.detail looks like this
+{
+  path: '/new-path',
+  route: newRoute,
+  oldRoute: oldRoute,
+  model: {
+    // path variables and query parameters
+    // modify or add properties here before data binding happens
+  }
+}</code-block>
+
+      <h4 id="activate-route-end" class="top-spacing">activate-route-end (attach to app-router or app-route) <a href="../#/events#activate-route-end">#</a></h4>
+      <p><code-snippet>activate-route-end</code-snippet> is fired after the DOM has been changed to the new route.</p>
+<code-block>// event.detail looks like this
+{
+  path: '/new-path',
+  route: newRoute,
+  oldRoute: oldRoute,
+  model: {}
+}</code-block>
+
+      <h2 id="addeventlistener" class="top-spacing">addEventListener() <a href="../#/events#addeventlistener">#</a></h2>
+      <p>Attach event listeners the JS way without Polymer.</p>
+
+      <p>Note: You should manually initialize the router to make sure the event listeners are attached before the first route loads.</p>
+
+<code-block>&lt;app-router init="manual"&gt;
+  &lt;app-route path="/" import="/pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="*" import="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+&lt;/app-router&gt;
+
+&lt;script&gt;
+  window.addEventListener('WebComponentsReady', function() {
+    var router = document.querySelector('app-router');
+
+    router.addEventListener('state-change', function(event) {
+      event.type; // 'state-change'
+      event.detail.path; // parsed URL path
+      event.preventDefault(); // cancel the new route
+    });
+
+    router.init();
+  });
+&lt;/script&gt;</code-block>
+
+      <h2 id="polymer-event-mapping" class="top-spacing">Polymer event mapping <a href="../#/events#polymer-event-mapping">#</a></h2>
+      <p>If you're using Polymer you can use <a href="https://www.polymer-project.org/docs/polymer/polymer.html#declarative-event-mapping">declarative event mapping</a>. This example shows how to redirect to a login page if the user hasn't signed in.</p>
+<code-block>&lt;polymer-element name="demo-app"&gt;
+  &lt;template&gt;
+    &lt;!-- bind the session object to demo-app --&gt;
+    &lt;user-session session="{{'\{{session}\}'}}"&gt;&lt;/user-session&gt;
+
+    &lt;app-router id="router" on-state-change="{{'\{{stateChange}\}'}}"&gt;
+      &lt;app-route path="/" import="/pages/home-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
+      &lt;app-route path="/login" import="/pages/login-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
+      &lt;app-route path="*" import="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+    &lt;/app-router&gt;
+
+  &lt;/template&gt;
+  &lt;script&gt;
+    Polymer('demo-app', {
+      stateChange: function(event) {
+        // redirect to the login page if not signed in
+        if (!this.session && event.detail.path !== '/login') {
+          event.preventDefault();
+          this.$.router.go('/login');
+        }
+      },
+      bindSession: function(event) {
+        // update the route's model before it's bound to the home-page or login-page
+        event.detail.model.session = this.session;
+      }
+    });
+  &lt;/script&gt;
+&lt;/polymer-element&gt;</code-block>
+
+    </scaffold-layout>
+  </template>
+</polymer-element>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>The Verge</title>
+
+    <!--<script src="packages/web_components/platform.js"></script>
+    <script src="packages/web_components/dart_support.js"></script>-->
+    <link rel="stylesheet" href="css/styles.css" shim-shadowdom>
+    <link rel="import" href="packages/polymer/polymer.html">
+    <link rel="import" href="packages/app_router_dart/app_router.html">
+    <!-- pre-load the most used elements -->
+    <link rel="import" href="layouts/scaffold-layout.html">
+    <link rel="import" href="pages/home-page.html">
+    <link rel="import" href="packages/core_elements/core_scaffold.html">
+    <link rel="import" href="packages/core_elements/core_header_panel.html">
+    <link rel="import" href="packages/core_elements/core_toolbar.html">
+    <link rel="import" href="packages/core_elements/core_item.html">
+    <link rel="import" href="packages/core_elements/social_icons.html">
+    <link rel="import" href="packages/core_elements/hardware_icons.html">
+    <link rel="import" href="packages/core_elements/core_style.html">
+    <link rel="import" href="css/core-style.html">
+    <!--<link rel="import" href="elements/code-block-import.html">-->
+    <link rel="import" href="elements/code-block.html">
+    <link rel="import" href="elements/code-snippet.html">
+
+    <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body unresolved vertical layout center>
+    <div style="width: 600px;">
+        <template is="auto-binding-dart" id="auto-bind">
+        Aaa
+          <app-router mode="hash">
+            <app-route path="/" import="pages/home-page.html" template></app-route>
+            <app-route path="/api" import="pages/api-page.html"></app-route>
+            <app-route path="/databinding/:pathArg1" import="pages/data-binding-page.html"></app-route>
+            <app-route path="/layouts" import="pages/layout-info-page.html"></app-route>
+            <app-route path="/events" import="pages/events-page.html"></app-route>
+            <app-route path="/core-animated-pages" import="pages/core-animated-pages.html" template></app-route>
+            <app-route path="/notes" import="pages/notes-page.html"></app-route>
+            <app-route path="*" import="pages/not-found-page.html" template></app-route>
+          </app-router>
+        </template>
+    </div>
+
+    <!--<script src="demo.dart" type="application/dart"></script>-->
+    <script type="application/dart">export 'package:polymer/init.dart';</script>
+    <!--<script src="packages/browser/dart.js"></script>-->
+  </body>
+</html>

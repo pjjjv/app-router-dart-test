@@ -1,0 +1,19 @@
+<link rel="import" href="../packages/polymer/polymer.html">
+<link rel="import" href="../css/core-style.html">
+<!--<link rel="import" href="code-block-import.html">-->
+<link rel="import" href="../packages/core_elements/core_style.html">
+
+<polymer-element name="code-block">
+  <template>
+    <core-style ref="code"></core-style>
+    <pre id="code" class="prettify"><content></content></pre>
+  </template>
+  <script>
+    /* global prettyPrintOne */
+    Polymer({
+      domReady: function() {
+        //this.$.code.innerHTML = prettyPrintOne(this.innerHTML.replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+      }
+    });
+  </script>
+</polymer-element>
