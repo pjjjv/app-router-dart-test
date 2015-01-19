@@ -13,8 +13,8 @@
       <p>Lifecycle events let you hook into different stages of the route process.</p>
 
 <code-block>&lt;app-router on-state-change="{{'\{{stateChange}\}'}}"&gt;
-  &lt;app-route path="/" import="/pages/home-page.html" on-activate-route-start="{{'\{{doSomethingCool}\}'}}"&gt;&lt;/app-route&gt;
-  &lt;app-route path="*" import="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/" imp="/pages/home-page.html" on-activate-route-start="{{'\{{doSomethingCool}\}'}}"&gt;&lt;/app-route&gt;
+  &lt;app-route path="*" imp="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
 
       <h4 id="state-change" class="top-spacing">state-change (attach to app-router) <a href="../#/events#state-change">#</a></h4>
@@ -69,8 +69,8 @@
       <p>Note: You should manually initialize the router to make sure the event listeners are attached before the first route loads.</p>
 
 <code-block>&lt;app-router init="manual"&gt;
-  &lt;app-route path="/" import="/pages/home-page.html"&gt;&lt;/app-route&gt;
-  &lt;app-route path="*" import="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/" imp="/pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="*" imp="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;
 
 &lt;script&gt;
@@ -95,9 +95,9 @@
     &lt;user-session session="{{'\{{session}\}'}}"&gt;&lt;/user-session&gt;
 
     &lt;app-router id="router" on-state-change="{{'\{{stateChange}\}'}}"&gt;
-      &lt;app-route path="/" import="/pages/home-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
-      &lt;app-route path="/login" import="/pages/login-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
-      &lt;app-route path="*" import="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+      &lt;app-route path="/" imp="/pages/home-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
+      &lt;app-route path="/login" imp="/pages/login-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
+      &lt;app-route path="*" imp="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
     &lt;/app-router&gt;
 
   &lt;/template&gt;

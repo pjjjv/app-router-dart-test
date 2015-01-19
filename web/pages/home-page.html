@@ -21,8 +21,8 @@
     <h2 id="configuration" class="top-spacing">Configuration <a href="#configuration">#</a></h2>
 
     <p>Define how URLs map to pages.</p>
-<code-block>&lt;!doctype html&gt;
-&lt;html&gt;
+<code-block>&lt;!doctype htm&gt;
+&lt;htm&gt;
 &lt;head&gt;
   &lt;title&gt;App Router&lt;/title&gt;
   &lt;link rel="import" href="/bower_components/app-router/app-router.html"&gt;
@@ -30,22 +30,22 @@
 &lt;body&gt;
   &lt;app-router&gt;
     &lt;!-- matches an exact path --&gt;
-    &lt;app-route path="/home" import="/pages/home-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="/home" imp="/pages/home-page.html"&gt;&lt;/app-route&gt;
 
     &lt;!-- matches using a wildcard --&gt;
-    &lt;app-route path="/customer/*" import="/pages/customer-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="/customer/*" imp="/pages/customer-page.html"&gt;&lt;/app-route&gt;
 
     &lt;!-- matches using a path variable --&gt;
-    &lt;app-route path="/order/:id" import="/pages/order-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="/order/:id" imp="/pages/order-page.html"&gt;&lt;/app-route&gt;
 
     &lt;!-- matches a pattern like '/word/number' --&gt;
-    &lt;app-route path="/^\/\w+\/\d+$/i" regex import="/pages/regex-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="/^\/\w+\/\d+$/i" regex imp="/pages/regex-page.html"&gt;&lt;/app-route&gt;
 
     &lt;!-- matches everything else --&gt;
-    &lt;app-route path="*" import="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="*" imp="/pages/not-found-page.html"&gt;&lt;/app-route&gt;
   &lt;/app-router&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code-block>
+&lt;/htm&gt;</code-block>
 
 
     <h2 id="navigation" class="top-spacing">Navigation <a href="#navigation">#</a></h2>
@@ -96,7 +96,7 @@ document.querySelector('app-router').go('/home', {replace: true});</code-block>
 &lt;a is="pushstate-anchor" href="/order/123?sort=ascending"&gt;Order 123&lt;/a&gt;
 
 &lt;!-- route --&gt;
-&lt;app-route path="/order/:id" import="/pages/order-page.html"&gt;&lt;/app-route&gt;
+&lt;app-route path="/order/:id" imp="/pages/order-page.html"&gt;&lt;/app-route&gt;
 
 &lt;!-- will bind 123 to the page's `id` attribute and "ascending" to the `sort` attribute --&gt;
 &lt;order-page id="123" sort="ascending"&gt;&lt;/order-page&gt;</code-block>

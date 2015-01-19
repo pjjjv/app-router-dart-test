@@ -72,12 +72,12 @@ window.dispatchEvent(new PopStateEvent('popstate', {
       <p>You can set up your routes like this to load the first page.</p>
 
 <code-block>&lt;app-router&gt;
-  &lt;app-route path="/" import="pages/home-page.html"&gt;&lt;/app-route&gt;
-  &lt;app-route path="/.*/www/index.html/" regex import="pages/home-page.html"&gt;&lt;/app-route&gt;
-  &lt;app-route path="*" import="pages/not-found.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/" imp="pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/.*/www/index.html/" regex imp="pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="*" imp="pages/not-found.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
 
-      <p>You need to use relative paths since the files are in different locations in iOS, Android, and Windows Phone. Do this by removing the leading slash from the <code-snippet>import</code-snippet> attributes. You will also have to switch everything else in your app to use relative paths.</p>
+      <p>You need to use relative paths since the files are in different locations in iOS, Android, and Windows Phone. Do this by removing the leading slash from the <code-snippet>imp</code-snippet> attributes. You will also have to switch everything else in your app to use relative paths.</p>
 
     </scaffold-layout>
   </template>

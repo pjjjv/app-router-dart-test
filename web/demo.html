@@ -9,10 +9,10 @@
 
     <!--<script src="packages/web_components/platform.js"></script>
     <script src="packages/web_components/dart_support.js"></script>-->
-    <link rel="stylesheet" href="css/styles.css" shim-shadowdom>
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="import" href="packages/polymer/polymer.html">
-    <link rel="import" href="packages/app_router_dart/app_router.html">
-    <link rel="import" href="packages/app_router_dart/app_route.html">
+    <link rel="import" href="packages/app_router_dart_test/app_router.html">
+    <link rel="import" href="packages/app_router_dart_test/app_route.html">
     <link rel="import" href="packages/pushstate_anchor_dart/pushstate_anchor.html">
 
     <!-- pre-load the most used elements -->
@@ -34,16 +34,15 @@
   </head>
 
   <body unresolved>
-        Aaa
   <app-router mode="hash">
-    <app-route path="/" import="pages/home-page.html" template></app-route>
-    <app-route path="/api" import="pages/api-page.html"></app-route>
-    <app-route path="/databinding/:pathArg1" import="pages/data-binding-page.html"></app-route>
-    <app-route path="/layouts" import="pages/layout-info-page.html"></app-route>
-    <app-route path="/events" import="pages/events-page.html"></app-route>
-    <app-route path="/core-animated-pages" import="pages/core-animated-pages.html" template></app-route>
-    <app-route path="/notes" import="pages/notes-page.html"></app-route>
-    <app-route path="*" import="pages/not-found-page.html" template></app-route>
+    <app-route path="/" imp="pages/home-page.html" template></app-route>
+    <app-route path="/api" imp="pages/api-page.html"></app-route>
+    <app-route path="/databinding/:pathArg1" imp="pages/data-binding-page.html"></app-route>
+    <app-route path="/layouts" imp="pages/layout-info-page.html"></app-route>
+    <app-route path="/events" imp="pages/events-page.html"></app-route>
+    <app-route path="/core-animated-pages" imp="pages/core-animated-pages.html" template></app-route>
+    <app-route path="/notes" imp="pages/notes-page.html"></app-route>
+    <app-route path="*" imp="pages/not-found-page.html" template></app-route>
   </app-router>
 
     <script type="application/dart">export 'package:polymer/init.dart';</script>

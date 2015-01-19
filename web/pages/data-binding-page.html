@@ -23,7 +23,7 @@
 
       <p>Path variables are defined on the <code-snippet>app-route</code-snippet>.</p>
 
-<code-block>&lt;app-route path="/demo/:pathArg1" import="pages/demo-page.html"&gt;&lt;/app-route&gt;</code-block>
+<code-block>&lt;app-route path="/demo/:pathArg1" imp="pages/demo-page.html"&gt;&lt;/app-route&gt;</code-block>
 
       <h4 id="page" class="top-spacing">Page <a href="../#/databinding/1337?queryParam1=Routing%20with%20Web%20Components!#page">#</a></h4>
 
@@ -65,7 +65,7 @@
       <p>You can bind the router to an element or template using the <code-snippet>bindRouter</code-snippet> attribute. This gives you access to the router's API including <code-snippet>router.go('/path')</code-snippet>.</p>
 
 <code-block>&lt;app-router&gt;
-  &lt;app-route path="/customer/:customerId" element="customer-page" bindRouter&gt;&lt;/app-route&gt;
+  &lt;app-route path="/customer/:customerId" elem="customer-page" bindRouter&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;
 
 &lt;!-- the customer-page has attributes for path variables and the router --&gt;
@@ -86,7 +86,7 @@
       <h2 id="before-data-binding-event" class="top-spacing">before-data-binding event <a href="../#/databinding/#before-data-binding-event">#</a></h2>
       <p>The <code-snippet>before-data-binding</code-snippet> event allows you to update the model before it is bound to the route's custom element or template.</p>
 <code-block>&lt;app-router&gt;
-  &lt;app-route path="/" import="/pages/home-page.html" on-before-data-binding="{{'\{{modifyModel}\}'}}"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/" imp="/pages/home-page.html" on-before-data-binding="{{'\{{modifyModel}\}'}}"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
 
 <code-block>modifyModel: function(event) {

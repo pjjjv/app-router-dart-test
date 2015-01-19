@@ -18,8 +18,8 @@
 &lt;link rel="import" href="/bower_components/core-animated-pages/core-animated-pages.html"&gt;
 
 &lt;app-router core-animated-pages transitions="hero-transition cross-fade"&gt;
-  &lt;app-route path="/home" import="/pages/home-page.html"&gt;&lt;/app-route&gt;
-  &lt;app-route path="/demo" import="/pages/demo-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/home" imp="/pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/demo" imp="/pages/demo-page.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
 
     <p>Then include the transition attributes on the content you want to animate. This example uses the <code-snippet>cross-fade</code-snippet> transition.</p>
@@ -52,14 +52,14 @@
   #shadow-root
   &lt;core-animated-pages transitions="hero-transition cross-fade"&gt;
     &lt;!-- light DOM --&gt;
-    &lt;app-route path="/home" import="/pages/home-page.html"&gt;
+    &lt;app-route path="/home" imp="/pages/home-page.html"&gt;
       &lt;home-page&gt;
         #shadow-root
         &lt;core-toolbar cross-fade&gt;Home&lt;/core-toolbar&gt;
         &lt;p&gt;Home page!&lt;/p&gt;
       &lt;/home-page&gt;
     &lt;/app-route&gt;
-    &lt;app-route path="/demo" import="/pages/demo-page.html"&gt;
+    &lt;app-route path="/demo" imp="/pages/demo-page.html"&gt;
       &lt;!-- empty until you navigate to /demo --&gt;
     &lt;/app-route&gt;
   &lt;/core-animated-pages&gt;
