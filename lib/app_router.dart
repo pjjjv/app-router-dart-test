@@ -3,6 +3,7 @@ import 'dart:html';
 import 'dart:async';
 import 'package:core_elements/core_animated_pages.dart';
 import 'package:app_router_dart_test/app_route.dart';
+import 'package:template_binding/template_binding.dart';
 
 Map importedURIs = {};
 var isIE = false;//TODO
@@ -45,7 +46,7 @@ class AppRouter extends PolymerElement {
 
   // Initialize the router
   void initialize() {
-    if(isInitialized == true) {
+    if(isInitialized) {
       return;
     }
     isInitialized = true;
@@ -353,8 +354,8 @@ void importAndActivate(AppRouter router, String importUri, AppRoute route, Route
   // Activate the imported custom element or template
 void activateImport(AppRouter router, LinkElement importLink, String importUri, AppRoute route, RouteUri url, Map eventDetail) {
   // make sure the user didn't navigate to a different route while it loaded
-  if (route.active = true) {
-    if (route.template = true) {
+  if (route.active) {
+    if (route.template) {
       // template
       activeTemplate(router, importLink.import.querySelector('template'), route, url, eventDetail);
     } else {
@@ -379,13 +380,14 @@ void activateCustomElement(AppRouter router, String elementName, AppRoute route,
 }
 
   // Create an instance of the template
-void activeTemplate(AppRouter router, AutoBindingElement template, AppRoute route, RouteUri url, Map eventDetail) {
+void activeTemplate(AppRouter router, TemplateElement template, AppRoute route, RouteUri url, Map eventDetail) {
   TemplateElement templateInstance;
   /*if ('createInstance' in template) {*/ //TODO
     // template.createInstance(model) is a Polymer method that binds a model to a template and also fixes
     // https://github.com/erikringsmuth/app-router/issues/19
     Map model = createModel(router, route, url, eventDetail);
-    template.model = toObservable(model);//templateBind(template).model = model
+    //template.model = toObservable(model);//
+    templateBind(template).model = toObservable(model);
     templateInstance = template;
   /*} else {
     templateInstance = document.importNode(template.content, true);
@@ -395,7 +397,7 @@ void activeTemplate(AppRouter router, AutoBindingElement template, AppRoute rout
 
   // Create the route's model
 Map createModel(AppRouter router, AppRoute route, RouteUri url, Map eventDetail) {
-  Map model = routeArguments(route.getAttribute('path'), url.path, url.search, route.regex == true, router.typecast == 'auto');
+  Map model = routeArguments(route.getAttribute('path'), url.path, url.search, route.regex, router.typecast == 'auto');
   if (route.bindRouter != null || router.bindRouter != null) {
     model['router'] = router;
   }
@@ -412,7 +414,7 @@ void activeElement(AppRouter router, Element element, RouteUri url, Map eventDet
   // UNLESS
   // if the route we're navigating to matches the same app-route (ex: path="/article/:id" navigating from /article/0 to
   // /article/1), then we have to simply replace the route's content instead of animating a transition.
-  if (router.core_animated_pages == false || eventDetail['route'] == eventDetail['oldRoute']) {
+  if (!router.core_animated_pages || eventDetail['route'] == eventDetail['oldRoute']) {
     removeRouteContent(router.previousRoute);
   }
 
@@ -420,7 +422,7 @@ void activeElement(AppRouter router, Element element, RouteUri url, Map eventDet
   router.activeRoute.append(element);
 
   // animate the transition if core-animated-pages are being used
-  if (router.core_animated_pages == true) {
+  if (router.core_animated_pages) {
     router.coreAnimatedPages.selected = router.activeRoute.path;
 
     // we already wired up transitionAnimationEnd() in init()
@@ -432,7 +434,7 @@ void activeElement(AppRouter router, Element element, RouteUri url, Map eventDet
   }
 
   // scroll to the URL hash if it's present
-  if (url.hash != null && router.core_animated_pages == false) {
+  if (url.hash != null && !router.core_animated_pages) {
     scrollToHash(url.hash);
   }
 
@@ -463,7 +465,7 @@ void removeRouteContent(AppRoute route) {
 
   // scroll to the element with id="hash" or name="hash"
 void scrollToHash(String hash) {
-  if (hash == null) return;
+  if (hash == null || hash == '') return;
 
   // wait for the browser's scrolling to finish before we scroll to the hash
   // ex: http://example.com/#/page1#middle
@@ -567,7 +569,10 @@ Map routeArguments(String routePath, String urlPath, String search, bool isRegEx
     }
   }
 
-  List<String> queryParameters = search.substring(1).split('&');
+  List<String> queryParameters = [];
+  if (search.length>0){
+    queryParameters = search.substring(1).split('&');
+  }
   // split() on an empty string has a strange behavior of returning [''] instead of []
   if (queryParameters.length == 1 && queryParameters[0] == '') {
     queryParameters = [];
