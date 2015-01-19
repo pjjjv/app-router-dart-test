@@ -335,7 +335,7 @@ void importAndActivate(AppRouter router, String importUri, AppRoute route, Route
     importLink.rel = 'import';
     importLink.href = importUri;
     importLink.addEventListener('load', importLoadedCallback);
-    print("importURL: dh: ${document.head}, importLink: ${importLink.toString()}.");
+    print("importURL: dh: ${document.head}, importLink: ${importLink.innerHtml.toString()}.");
     document.head.append(importLink);
   } else {
     // previously imported. this is an async operation and may not be complete yet.

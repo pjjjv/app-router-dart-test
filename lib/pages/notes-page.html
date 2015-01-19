@@ -1,7 +1,7 @@
-<link rel="import" href="../packages/polymer/polymer.html">
-<link rel="import" href="../layouts/scaffold-layout.html">
-<link rel="import" href="../elements/code-block.html">
-<link rel="import" href="../elements/code-snippet.html">
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../packages/app_router_dart_test/layouts/scaffold-layout.html">
+<link rel="import" href="../../../packages/app_router_dart_test/elements/code-block.html">
+<link rel="import" href="../../../packages/app_router_dart_test/elements/code-snippet.html">
 
 <polymer-element name="notes-page" noscript>
   <template>
@@ -72,9 +72,9 @@ window.dispatchEvent(new PopStateEvent('popstate', {
       <p>You can set up your routes like this to load the first page.</p>
 
 <code-block>&lt;app-router&gt;
-  &lt;app-route path="/" imp="pages/home-page.html"&gt;&lt;/app-route&gt;
-  &lt;app-route path="/.*/www/index.html/" regex imp="pages/home-page.html"&gt;&lt;/app-route&gt;
-  &lt;app-route path="*" imp="pages/not-found.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/" imp="../../../packages/app_router_dart_test/pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/.*/www/index.html/" regex imp="../../../packages/app_router_dart_test/pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="*" imp="../../../packages/app_router_dart_test/pages/not-found.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
 
       <p>You need to use relative paths since the files are in different locations in iOS, Android, and Windows Phone. Do this by removing the leading slash from the <code-snippet>imp</code-snippet> attributes. You will also have to switch everything else in your app to use relative paths.</p>
