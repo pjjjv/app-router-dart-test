@@ -381,17 +381,20 @@ void activateCustomElement(AppRouter router, String elementName, AppRoute route,
 
   // Create an instance of the template
 void activeTemplate(AppRouter router, TemplateElement template, AppRoute route, RouteUri url, Map eventDetail) {
-  TemplateElement templateInstance;
+  DocumentFragment templateInstance;
   /*if ('createInstance' in template) {*/ //TODO
     // template.createInstance(model) is a Polymer method that binds a model to a template and also fixes
     // https://github.com/erikringsmuth/app-router/issues/19
-    Map model = createModel(router, route, url, eventDetail);
+    //Map model = createModel(router, route, url, eventDetail);
+    //templateInstance = (template as DocumentFragment).createInstance(model: model);
     //template.model = toObservable(model);//
-    templateBind(template).model = toObservable(model);
-    templateInstance = template;
+    //templateBind(template).model = toObservable(model);
+    //templateInstance = template;
   /*} else {
     templateInstance = document.importNode(template.content, true);
   }*/
+
+  templateInstance = document.importNode(template.content, true);
   activeElement(router, templateInstance, url, eventDetail);
 }
 
@@ -408,7 +411,7 @@ Map createModel(AppRouter router, AppRoute route, RouteUri url, Map eventDetail)
 }
 
   // Replace the active route's content with the new element
-void activeElement(AppRouter router, Element element, RouteUri url, Map eventDetail) {
+void activeElement(AppRouter router, Node element, RouteUri url, Map eventDetail) {
   // core-animated-pages temporarily needs the old and new route in the DOM at the same time to animate the transition,
   // otherwise we can remove the old route's content right away.
   // UNLESS
