@@ -11,6 +11,7 @@ RouteUri previousUrl = new RouteUri.parse(window.location.href, "auto");
 
 @CustomTag('app-router')
 class AppRouter extends PolymerElement {
+//implements TemplateBindExtension{
 
   @published String init = "auto";
   @published String mode = "auto";
@@ -336,7 +337,6 @@ void importAndActivate(AppRouter router, String importUri, AppRoute route, Route
     importLink.rel = 'import';
     importLink.href = importUri;
     importLink.addEventListener('load', importLoadedCallback);
-    print("importURL: dh: ${document.head}, importLink: ${importLink.innerHtml.toString()}.");
     document.head.append(importLink);
   } else {
     // previously imported. this is an async operation and may not be complete yet.
@@ -386,7 +386,8 @@ void activeTemplate(AppRouter router, TemplateElement template, AppRoute route, 
     // template.createInstance(model) is a Polymer method that binds a model to a template and also fixes
     // https://github.com/erikringsmuth/app-router/issues/19
     //Map model = createModel(router, route, url, eventDetail);
-    //templateInstance = (template as DocumentFragment).createInstance(model: model);
+    //templateInstance = (template as AutoBindingElement).createInstance(model: model);
+    //templateInstance = templateBindFallback(template).createInstance(model: model);
     //template.model = toObservable(model);//
     //templateBind(template).model = toObservable(model);
     //templateInstance = template;
