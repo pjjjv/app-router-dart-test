@@ -326,18 +326,17 @@ void activateRoute(AppRouter router, AppRoute route, RouteUri url) {
   // Import and activate a custom element or template
 void importAndActivate(AppRouter router, String importUri, AppRoute route, RouteUri url, Map eventDetail){
   LinkElement importLink;
-  importLoadedCallback(Event e) {
+  pageLoadedCallback(Event e) {
+    print("imported");
     activateImport(router, importLink, importUri, route, url, eventDetail);
   }
 
   if (!importedURIs.containsKey(importUri)) {//TODO
     // hasn't been imported yet
     importedURIs[importUri] = true;
-    importLink = document.createElement('link');
-    importLink.rel = 'import';
-    importLink.href = importUri;
-    importLink.addEventListener('load', importLoadedCallback);
-    document.head.append(importLink);
+    route.addEventListener('lazy-loaded', pageLoadedCallback);
+    var path = route.imp;
+    Polymer.import([importLink]).then(pageLoadedCallback);
   } else {
     // previously imported. this is an async operation and may not be complete yet.
     LinkElement importLink = document.querySelector('link[href="' + importUri + '"]');
