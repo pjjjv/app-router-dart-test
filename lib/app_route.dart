@@ -1,7 +1,8 @@
 import 'package:polymer/polymer.dart';
+import 'dart:html';
 
 @CustomTag('app-route')
-class AppRoute extends PolymerElement {
+class AppRoute extends PolymerElement with Observable {
   @published String path = "/";
   @published String imp;
   @published String elem;
@@ -12,7 +13,21 @@ class AppRoute extends PolymerElement {
   @published bool active = false;
   @published bool bindRouter;
 
+  Element _contentContainer;
+
   AppRoute.created() : super.created();
+
+  void ready() {
+    _contentContainer = $['content'];
+  }
+
+  void setContent(content, validator) {
+    _contentContainer.setInnerHtml(content, validator: validator);
+  }
+
+  Element getContent(){
+    return _contentContainer;
+  }
 
   toString() => "path: $path, imp: $imp, elem: $elem, template: $template, regex: $regex, redirect: $redirect, transitionAnimationInProgress: $transitionAnimationInProgress, active: $active, bindRouter: $bindRouter";
 }

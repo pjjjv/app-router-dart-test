@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:core_elements/core_animated_pages.dart';
 import 'package:app_router_dart_test/app_route.dart';
 import 'package:template_binding/template_binding.dart';
+import 'package:core_elements/core_ajax_dart.dart';
 
 Map importedURIs = {};
 var isIE = false;//TODO
@@ -28,6 +29,8 @@ class AppRouter extends PolymerElement {
   AppRoute activeRoute;
   CoreAnimatedPages coreAnimatedPages;
 
+  CoreAjax _ajax;
+
   AppRouter.created() : super.created();
 
   void domReady() {
@@ -35,6 +38,10 @@ class AppRouter extends PolymerElement {
     if(init != "manual") {
       initialize();
     }
+  }
+
+  void ready() {
+    _ajax = $['ajax'];
   }
 
   // Initial set up when attached
@@ -325,38 +332,44 @@ void activateRoute(AppRouter router, AppRoute route, RouteUri url) {
 
   // Import and activate a custom element or template
 void importAndActivate(AppRouter router, String importUri, AppRoute route, RouteUri url, Map eventDetail){
-  LinkElement importLink;
+  Element contentHtml;
   pageLoadedCallback(Event e) {
+    final String content = e.detail['response'];
+
+    route.setContent(content, _nodeValidator);
+    contentHtml = route.getContent();
+
     print("imported");
-    activateImport(router, importLink, importUri, route, url, eventDetail);
+    activateImport(router, contentHtml, importUri, route, url, eventDetail);
   }
 
   if (!importedURIs.containsKey(importUri)) {//TODO
     // hasn't been imported yet
     importedURIs[importUri] = true;
     route.addEventListener('lazy-loaded', pageLoadedCallback);
-    var path = route.imp;
-    Polymer.import([importLink]).then(pageLoadedCallback);
+    router._ajax.url = route.imp;
+    router._ajax.onCoreResponse.listen(pageLoadedCallback);
+    router._ajax.go();
   } else {
     // previously imported. this is an async operation and may not be complete yet.
-    LinkElement importLink = document.querySelector('link[href="' + importUri + '"]');
-    if (importLink.import != null) {
+    //LinkElement importLink = document.querySelector('link[href="' + importUri + '"]');
+    //if (importLink.import != null) {
       // import complete
-      importLoadedCallback(null);
-    } else {
+      pageLoadedCallback(null);
+    //} else {
       // wait for `onload`
-      importLink.addEventListener('load', importLoadedCallback);
-    }
+      //importLink.addEventListener('load', pageLoadedCallback);
+    //}
   }
 }
 
   // Activate the imported custom element or template
-void activateImport(AppRouter router, LinkElement importLink, String importUri, AppRoute route, RouteUri url, Map eventDetail) {
+void activateImport(AppRouter router, Element contentHtml, String importUri, AppRoute route, RouteUri url, Map eventDetail) {
   // make sure the user didn't navigate to a different route while it loaded
   if (route.active) {
     if (route.template) {
       // template
-      activeTemplate(router, importLink.import.querySelector('template'), route, url, eventDetail);
+      activeTemplate(router, contentHtml.querySelector('template'), route, url, eventDetail);
     } else {
       // custom element
       String elementName;
@@ -642,3 +655,16 @@ bool testRegExString(String pattern, String value) {
   }
   return new RegExp(r"$pattern").hasMatch(value);//TODO
 }
+
+
+class _TrusingNodeValidator implements NodeValidator {
+
+  @override
+  bool allowsAttribute(Element element, String attributeName, String value) =>
+      true;
+
+  @override
+  bool allowsElement(Element element) => true;
+}
+
+  _TrusingNodeValidator _nodeValidator = new _TrusingNodeValidator();
