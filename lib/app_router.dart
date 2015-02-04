@@ -397,7 +397,7 @@ void activateCustomElement(AppRouter router, String elementName, AppRoute route,
 
   // Create an instance of the template
 void activeTemplate(AppRouter router, TemplateElement template, AppRoute route, RouteUri url, Map eventDetail) {
-  DocumentFragment templateInstance = null;
+  DocumentFragment templateInstance;
   /*if ('createInstance' in template) {*/ //TODO
     // template.createInstance(model) is a Polymer method that binds a model to a template and also fixes
     // https://github.com/erikringsmuth/app-router/issues/19
@@ -411,7 +411,7 @@ void activeTemplate(AppRouter router, TemplateElement template, AppRoute route, 
     templateInstance = document.importNode(template.content, true);
   }*/
 
-  //templateInstance = document.importNode(template.content, true);
+  templateInstance = document.importNode(template.content, true);
   activeElement(router, templateInstance, url, eventDetail);
 }
 
@@ -439,7 +439,7 @@ void activeElement(AppRouter router, Node element, RouteUri url, Map eventDetail
   }
 
   // add the new content
-  //router.activeRoute.append(element);
+  router.activeRoute.append(element);
 
   // animate the transition if core-animated-pages are being used
   if (router.core_animated_pages) {
