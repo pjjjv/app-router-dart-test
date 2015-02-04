@@ -72,9 +72,13 @@ class AppRouter extends PolymerElement {
       //     </app-route>
       //   </core-animated-pages>
       // </app-router>
-      createShadowRoot();
-      CoreAnimatedPages coreAnimatedPages = document.createElement('core-animated-pages');
-      coreAnimatedPages.append(document.createElement('content'));
+      //createShadowRoot();
+
+      Element content = shadowRoot.querySelector("content");
+
+      coreAnimatedPages = (new Element.tag('core-animated-pages') as CoreAnimatedPages);
+      //coreAnimatedPages = (document.createElement('core-animated-pages') as CoreAnimatedPages);
+      coreAnimatedPages.append(content);
 
       // don't know why it needs to be static, but absolute doesn't display the page
       coreAnimatedPages.style.position = 'static';
