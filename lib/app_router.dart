@@ -346,7 +346,7 @@ void importAndActivate(AppRouter router, String importUri, AppRoute route, Route
   if (!importedURIs.containsKey(importUri)) {//TODO
     // hasn't been imported yet
     importedURIs[importUri] = true;
-    route.addEventListener('lazy-loaded', pageLoadedCallback);
+    //route.addEventListener('lazy-loaded', pageLoadedCallback);
     router._ajax.url = route.imp;
     router._ajax.onCoreResponse.listen(pageLoadedCallback);
     router._ajax.go();
@@ -355,7 +355,7 @@ void importAndActivate(AppRouter router, String importUri, AppRoute route, Route
     //LinkElement importLink = document.querySelector('link[href="' + importUri + '"]');
     //if (importLink.import != null) {
       // import complete
-      pageLoadedCallback(null);
+      //pageLoadedCallback(null);
     //} else {
       // wait for `onload`
       //importLink.addEventListener('load', pageLoadedCallback);
@@ -393,7 +393,7 @@ void activateCustomElement(AppRouter router, String elementName, AppRoute route,
 
   // Create an instance of the template
 void activeTemplate(AppRouter router, TemplateElement template, AppRoute route, RouteUri url, Map eventDetail) {
-  DocumentFragment templateInstance;
+  DocumentFragment templateInstance = null;
   /*if ('createInstance' in template) {*/ //TODO
     // template.createInstance(model) is a Polymer method that binds a model to a template and also fixes
     // https://github.com/erikringsmuth/app-router/issues/19
@@ -407,7 +407,7 @@ void activeTemplate(AppRouter router, TemplateElement template, AppRoute route, 
     templateInstance = document.importNode(template.content, true);
   }*/
 
-  templateInstance = document.importNode(template.content, true);
+  //templateInstance = document.importNode(template.content, true);
   activeElement(router, templateInstance, url, eventDetail);
 }
 
@@ -435,7 +435,7 @@ void activeElement(AppRouter router, Node element, RouteUri url, Map eventDetail
   }
 
   // add the new content
-  router.activeRoute.append(element);
+  //router.activeRoute.append(element);
 
   // animate the transition if core-animated-pages are being used
   if (router.core_animated_pages) {
