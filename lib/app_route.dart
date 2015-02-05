@@ -18,7 +18,7 @@ class AppRoute extends PolymerElement with Observable {
   AppRoute.created() : super.created();
 
   void ready() {
-    _contentContainer = $['content'];
+    _contentContainer = shadowRoot.querySelector("content");
   }
 
   void setContent(content, validator) {

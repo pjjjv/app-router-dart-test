@@ -323,11 +323,11 @@ void activateRoute(AppRouter router, AppRoute route, RouteUri url) {
     transitionAnimationEnd(router.previousRoute);
   }
   if (router.activeRoute != null) {
-    router.activeRoute.attributes.remove('active');
+    router.activeRoute.active = false;
   }
   router.previousRoute = router.activeRoute;
   router.activeRoute = route;
-  router.activeRoute.active = true;//TODO
+  router.activeRoute.active = true;
 
   // import custom element or template
   if (route.imp != null) {
@@ -346,10 +346,20 @@ void activateRoute(AppRouter router, AppRoute route, RouteUri url) {
   // Import and activate a custom element or template
 void importAndActivate(AppRouter router, String importUri, AppRoute route, RouteUri url, Map eventDetail){
   Element contentHtml;
-  pageLoadedCallback(Event e) {
+  pageLoadedCallback(Event e, AppRouter router, Element contentHtml, String importUri, AppRoute route, RouteUri url, Map eventDetail) {
     final String content = e.detail['response'];
 
-    activateImport(router, contentHtml, importUri, route, url, eventDetail, content);
+    if (route.active) {
+      route.setContent(content, _nodeValidator);
+      contentHtml = route.getContent();
+      print("imported");
+    }
+
+    activateImport(router, contentHtml, importUri, route, url, eventDetail);
+  }
+
+  onError(Event e) {
+    print("Error: could not find/load page.");
   }
 
   if (!importedURIs.containsKey(importUri)) {//TODO
@@ -357,31 +367,25 @@ void importAndActivate(AppRouter router, String importUri, AppRoute route, Route
     importedURIs[importUri] = true;
     //route.addEventListener('lazy-loaded', pageLoadedCallback);
     router._ajax.url = route.imp;
-    router._ajax.onCoreResponse.listen(pageLoadedCallback);
+    router._ajax.onCoreResponse.first.then((Event e) => pageLoadedCallback(e, router, contentHtml, importUri, route, url, eventDetail));
+    router._ajax.onError.first.then(onError);
     router._ajax.go();
   } else {
     // previously imported. this is an async operation and may not be complete yet.
-    //LinkElement importLink = document.querySelector('link[href="' + importUri + '"]');
-    //if (importLink.import != null) {
-      // import complete
-      //pageLoadedCallback(null);
-    //} else {
-      // wait for `onload`
-      //importLink.addEventListener('load', pageLoadedCallback);
-    //}
+    if(router._ajax.loading){
+      //just wait longer
+    } else {
+      contentHtml = route.getContent();
+      activateImport(router, contentHtml, importUri, route, url, eventDetail);
+    }
   }
 }
 
   // Activate the imported custom element or template
-void activateImport(AppRouter router, Element contentHtml, String importUri, AppRoute route, RouteUri url, Map eventDetail, String content) {
+void activateImport(AppRouter router, Element contentHtml, String importUri, AppRoute route, RouteUri url, Map eventDetail) {
   // make sure the user didn't navigate to a different route while it loaded
   if (route.active) {
     if (route.template) {
-
-      route.setContent(content, _nodeValidator);
-      contentHtml = route.getContent();
-      print("imported");
-
       // template
       activeTemplate(router, contentHtml.querySelector('template'), route, url, eventDetail);
     } else {
@@ -390,7 +394,7 @@ void activateImport(AppRouter router, Element contentHtml, String importUri, App
       if (route.elem != null) {
         elementName = route.elem;
       } else {
-        elementName = importUri.split('/').last.replaceAll('.html', '');//TODO
+        elementName = importUri.split('/').last.replaceAll('.html', '');//TODO: add transform for _ to -.
       }
       activateCustomElement(router, elementName, route, url, eventDetail);
     }
