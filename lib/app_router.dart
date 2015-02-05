@@ -230,7 +230,16 @@ class RouteUri {
         if (uri.fragment.length == 0) {
           uri = uri.replace(path: '/');
         } else {
-          uri = uri.replace(path: uri.fragment.substring(1));
+          String pathAndQuery = uri.fragment.substring(1);
+          int index = pathAndQuery.indexOf("?");
+          String path = pathAndQuery;
+          String query = "";
+          if(index != -1){
+            path = pathAndQuery.substring(0, index);
+            query = pathAndQuery.substring(index+1);
+          }
+
+          uri = uri.replace(path: path, query: query);
         }
       }
 
@@ -340,11 +349,7 @@ void importAndActivate(AppRouter router, String importUri, AppRoute route, Route
   pageLoadedCallback(Event e) {
     final String content = e.detail['response'];
 
-    route.setContent(content, _nodeValidator);
-    contentHtml = route.getContent();
-
-    print("imported");
-    activateImport(router, contentHtml, importUri, route, url, eventDetail);
+    activateImport(router, contentHtml, importUri, route, url, eventDetail, content);
   }
 
   if (!importedURIs.containsKey(importUri)) {//TODO
@@ -368,10 +373,15 @@ void importAndActivate(AppRouter router, String importUri, AppRoute route, Route
 }
 
   // Activate the imported custom element or template
-void activateImport(AppRouter router, Element contentHtml, String importUri, AppRoute route, RouteUri url, Map eventDetail) {
+void activateImport(AppRouter router, Element contentHtml, String importUri, AppRoute route, RouteUri url, Map eventDetail, String content) {
   // make sure the user didn't navigate to a different route while it loaded
   if (route.active) {
     if (route.template) {
+
+      route.setContent(content, _nodeValidator);
+      contentHtml = route.getContent();
+      print("imported");
+
       // template
       activeTemplate(router, contentHtml.querySelector('template'), route, url, eventDetail);
     } else {
@@ -390,7 +400,7 @@ void activateImport(AppRouter router, Element contentHtml, String importUri, App
   // Data bind the custom element then activate it
 void activateCustomElement(AppRouter router, String elementName, AppRoute route, RouteUri url, Map eventDetail) {
   Element customElement = document.createElement(elementName);
-  Map model = createModel(router, route, url, eventDetail);
+  Map<String, String> model = createModel(router, route, url, eventDetail);
   customElement.attributes.addAll(model);//TODO
   activeElement(router, customElement, url, eventDetail);
 }
@@ -567,7 +577,7 @@ bool testRoute(String routePath, String urlPath, String trailingSlashOption, boo
 
   // routeArguments(routePath, urlPath, search, isRegExp) - Gets the path variables and query parameter values from the URL
 Map routeArguments(String routePath, String urlPath, String search, bool isRegExp, bool autoTypecast) {
-  Map args = {};
+  Map<String, String> args = {};
 
   // regular expressions can't have path variables
   if (!isRegExp) {
@@ -591,7 +601,7 @@ Map routeArguments(String routePath, String urlPath, String search, bool isRegEx
 
   List<String> queryParameters = [];
   if (search.length>0){
-    queryParameters = search.substring(1).split('&');
+    queryParameters = search.substring(0).split('&');
   }
   // split() on an empty string has a strange behavior of returning [''] instead of []
   if (queryParameters.length == 1 && queryParameters[0] == '') {
@@ -600,7 +610,7 @@ Map routeArguments(String routePath, String urlPath, String search, bool isRegEx
   for (int i = 0; i < queryParameters.length; i++) {
     String queryParameter = queryParameters[i];
     List<String> queryParameterParts = queryParameter.split('=');
-    args[queryParameterParts[0]] = queryParameterParts.sublist(1, queryParameterParts.length - 1).join('=');//TODO
+    args[queryParameterParts[0]] = queryParameterParts.sublist(1).join('=');//TODO
   }
 
   if (autoTypecast) {
@@ -614,20 +624,20 @@ Map routeArguments(String routePath, String urlPath, String search, bool isRegEx
 }
 
   // typecast(value) - Typecast the string value to an unescaped string, number, or boolean
-typecast (String value) {
+String typecast (String value) {
   // bool
   if (value == 'true') {
-    return true;
+    return 'true';
   }
   if (value == 'false') {
-    return false;
+    return 'false';
   }
 
   // number
   if (value != '' && !value.startsWith('0')) {
     int number = int.parse(value, onError: (string) => 0);
     if (number != 0) {
-      return number;
+      return number.toString();
     }
   }
 
