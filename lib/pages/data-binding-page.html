@@ -1,8 +1,26 @@
+<!--
+    App Router Test - dart
+    Copyright (c) 2015 pjv
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <link rel="import" href="../../../packages/polymer/polymer.html">
-<link rel="import" href="../../../packages/app_router_dart_test/layouts/scaffold-layout.html">
-<link rel="import" href="../../../packages/app_router_dart_test/elements/code-block.html">
-<link rel="import" href="../../../packages/app_router_dart_test/elements/code-snippet.html">
-    <link rel="import" href="../../../packages/pushstate_anchor_dart/pushstate_anchor.html">
+<link rel="import" href="../../../packages/app_router_test/layouts/scaffold-layout.html">
+<link rel="import" href="../../../packages/app_router_test/elements/code-block.html">
+<link rel="import" href="../../../packages/app_router_test/elements/code-snippet.html">
+    <link rel="import" href="../../../packages/pushstate_anchor/pushstate_anchor.html">
 
 <polymer-element name="data-binding-page" attributes="pathArg1 queryParam1">
   <template>
@@ -23,7 +41,7 @@
 
       <p>Path variables are defined on the <code-snippet>app-route</code-snippet>.</p>
 
-<code-block>&lt;app-route path="/demo/:pathArg1" imp="../../../packages/app_router_dart_test/pages/demo-page.html"&gt;&lt;/app-route&gt;</code-block>
+<code-block>&lt;app-route path="/demo/:pathArg1" imp="../../../packages/app_router_test/pages/demo-page.html"&gt;&lt;/app-route&gt;</code-block>
 
       <h4 id="page" class="top-spacing">Page <a href="../#/databinding/1337?queryParam1=Routing%20with%20Web%20Components!#page">#</a></h4>
 
@@ -86,7 +104,7 @@
       <h2 id="before-data-binding-event" class="top-spacing">before-data-binding event <a href="../#/databinding/#before-data-binding-event">#</a></h2>
       <p>The <code-snippet>before-data-binding</code-snippet> event allows you to update the model before it is bound to the route's custom element or template.</p>
 <code-block>&lt;app-router&gt;
-  &lt;app-route path="/" imp="../../../packages/app_router_dart_test/pages/home-page.html" on-before-data-binding="{{'\{{modifyModel}\}'}}"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/" imp="../../../packages/app_router_test/pages/home-page.html" on-before-data-binding="{{'\{{modifyModel}\}'}}"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
 
 <code-block>modifyModel: function(event) {

@@ -1,8 +1,26 @@
+<!--
+    App Router Test - dart
+    Copyright (c) 2015 pjv
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <link rel="import" href="../../../packages/polymer/polymer.html">
-<link rel="import" href="../../../packages/pushstate_anchor_dart/pushstate_anchor.html">
-<link rel="import" href="../../../packages/app_router_dart_test/layouts/scaffold-layout.html">
-<link rel="import" href="../../../packages/app_router_dart_test/elements/code-block.html">
-<link rel="import" href="../../../packages/app_router_dart_test/elements/code-snippet.html">
+<link rel="import" href="../../../packages/pushstate_anchor/pushstate_anchor.html">
+<link rel="import" href="../../../packages/app_router_test/layouts/scaffold-layout.html">
+<link rel="import" href="../../../packages/app_router_test/elements/code-block.html">
+<link rel="import" href="../../../packages/app_router_test/elements/code-snippet.html">
 
 <template>
   <scaffold-layout selected="home">
@@ -30,19 +48,19 @@
 &lt;body&gt;
   &lt;app-router&gt;
     &lt;!-- matches an exact path --&gt;
-    &lt;app-route path="/home" imp="../../../packages/app_router_dart_test/pages/home-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="/home" imp="../../../packages/app_router_test/pages/home-page.html"&gt;&lt;/app-route&gt;
 
     &lt;!-- matches using a wildcard --&gt;
-    &lt;app-route path="/customer/*" imp="../../../packages/app_router_dart_test/pages/customer-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="/customer/*" imp="../../../packages/app_router_test/pages/customer-page.html"&gt;&lt;/app-route&gt;
 
     &lt;!-- matches using a path variable --&gt;
-    &lt;app-route path="/order/:id" imp="../../../packages/app_router_dart_test/pages/order-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="/order/:id" imp="../../../packages/app_router_test/pages/order-page.html"&gt;&lt;/app-route&gt;
 
     &lt;!-- matches a pattern like '/word/number' --&gt;
-    &lt;app-route path="/^\/\w+\/\d+$/i" regex imp="../../../packages/app_router_dart_test/pages/regex-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="/^\/\w+\/\d+$/i" regex imp="../../../packages/app_router_test/pages/regex-page.html"&gt;&lt;/app-route&gt;
 
     &lt;!-- matches everything else --&gt;
-    &lt;app-route path="*" imp="../../../packages/app_router_dart_test/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+    &lt;app-route path="*" imp="../../../packages/app_router_test/pages/not-found-page.html"&gt;&lt;/app-route&gt;
   &lt;/app-router&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code-block>
@@ -96,7 +114,7 @@ document.querySelector('app-router').go('/home', {replace: true});</code-block>
 &lt;a is="pushstate-anchor" href="/order/123?sort=ascending"&gt;Order 123&lt;/a&gt;
 
 &lt;!-- route --&gt;
-&lt;app-route path="/order/:id" imp="../../../packages/app_router_dart_test/pages/order-page.html"&gt;&lt;/app-route&gt;
+&lt;app-route path="/order/:id" imp="../../../packages/app_router_test/pages/order-page.html"&gt;&lt;/app-route&gt;
 
 &lt;!-- will bind 123 to the page's `id` attribute and "ascending" to the `sort` attribute --&gt;
 &lt;order-page id="123" sort="ascending"&gt;&lt;/order-page&gt;</code-block>

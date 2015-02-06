@@ -1,7 +1,25 @@
+<!--
+    App Router Test - dart
+    Copyright (c) 2015 pjv
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <link rel="import" href="../../../packages/polymer/polymer.html">
-<link rel="import" href="../../../packages/app_router_dart_test/layouts/scaffold-layout.html">
-<link rel="import" href="../../../packages/app_router_dart_test/elements/code-block.html">
-<link rel="import" href="../../../packages/app_router_dart_test/elements/code-snippet.html">
+<link rel="import" href="../../../packages/app_router_test/layouts/scaffold-layout.html">
+<link rel="import" href="../../../packages/app_router_test/elements/code-block.html">
+<link rel="import" href="../../../packages/app_router_test/elements/code-snippet.html">
 
 <polymer-element name="events-page" noscript>
   <template>
@@ -13,8 +31,8 @@
       <p>Lifecycle events let you hook into different stages of the route process.</p>
 
 <code-block>&lt;app-router on-state-change="{{'\{{stateChange}\}'}}"&gt;
-  &lt;app-route path="/" imp="../../../packages/app_router_dart_test/pages/home-page.html" on-activate-route-start="{{'\{{doSomethingCool}\}'}}"&gt;&lt;/app-route&gt;
-  &lt;app-route path="*" imp="../../../packages/app_router_dart_test/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/" imp="../../../packages/app_router_test/pages/home-page.html" on-activate-route-start="{{'\{{doSomethingCool}\}'}}"&gt;&lt;/app-route&gt;
+  &lt;app-route path="*" imp="../../../packages/app_router_test/pages/not-found-page.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
 
       <h4 id="state-change" class="top-spacing">state-change (attach to app-router) <a href="../#/events#state-change">#</a></h4>
@@ -69,8 +87,8 @@
       <p>Note: You should manually initialize the router to make sure the event listeners are attached before the first route loads.</p>
 
 <code-block>&lt;app-router init="manual"&gt;
-  &lt;app-route path="/" imp="../../../packages/app_router_dart_test/pages/home-page.html"&gt;&lt;/app-route&gt;
-  &lt;app-route path="*" imp="../../../packages/app_router_dart_test/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/" imp="../../../packages/app_router_test/pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="*" imp="../../../packages/app_router_test/pages/not-found-page.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;
 
 &lt;script&gt;
@@ -95,9 +113,9 @@
     &lt;user-session session="{{'\{{session}\}'}}"&gt;&lt;/user-session&gt;
 
     &lt;app-router id="router" on-state-change="{{'\{{stateChange}\}'}}"&gt;
-      &lt;app-route path="/" imp="../../../packages/app_router_dart_test/pages/home-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
-      &lt;app-route path="/login" imp="../../../packages/app_router_dart_test/pages/login-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
-      &lt;app-route path="*" imp="../../../packages/app_router_dart_test/pages/not-found-page.html"&gt;&lt;/app-route&gt;
+      &lt;app-route path="/" imp="../../../packages/app_router_test/pages/home-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
+      &lt;app-route path="/login" imp="../../../packages/app_router_test/pages/login-page.html" on-before-data-binding="{{'\{{bindSession}\}'}}"&gt;&lt;/app-route&gt;
+      &lt;app-route path="*" imp="../../../packages/app_router_test/pages/not-found-page.html"&gt;&lt;/app-route&gt;
     &lt;/app-router&gt;
 
   &lt;/template&gt;

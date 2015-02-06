@@ -1,7 +1,25 @@
+<!--
+    App Router Test - dart
+    Copyright (c) 2015 pjv
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <link rel="import" href="../../../packages/polymer/polymer.html">
-<link rel="import" href="../../../packages/app_router_dart_test/layouts/scaffold-layout.html">
-<link rel="import" href="../../../packages/app_router_dart_test/elements/code-block.html">
-<link rel="import" href="../../../packages/app_router_dart_test/elements/code-snippet.html">
+<link rel="import" href="../../../packages/app_router_test/layouts/scaffold-layout.html">
+<link rel="import" href="../../../packages/app_router_test/elements/code-block.html">
+<link rel="import" href="../../../packages/app_router_test/elements/code-snippet.html">
 
 <template>
   <scaffold-layout selected="core-animated-pages">
@@ -18,8 +36,8 @@
 &lt;link rel="import" href="/bower_components/core-animated-pages/core-animated-pages.html"&gt;
 
 &lt;app-router core-animated-pages transitions="hero-transition cross-fade"&gt;
-  &lt;app-route path="/home" imp="../../../packages/app_router_dart_test/pages/home-page.html"&gt;&lt;/app-route&gt;
-  &lt;app-route path="/demo" imp="../../../packages/app_router_dart_test/pages/demo-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/home" imp="../../../packages/app_router_test/pages/home-page.html"&gt;&lt;/app-route&gt;
+  &lt;app-route path="/demo" imp="../../../packages/app_router_test/pages/demo-page.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
 
     <p>Then include the transition attributes on the content you want to animate. This example uses the <code-snippet>cross-fade</code-snippet> transition.</p>
@@ -52,14 +70,14 @@
   #shadow-root
   &lt;core-animated-pages transitions="hero-transition cross-fade"&gt;
     &lt;!-- light DOM --&gt;
-    &lt;app-route path="/home" imp="../../../packages/app_router_dart_test/pages/home-page.html"&gt;
+    &lt;app-route path="/home" imp="../../../packages/app_router_test/pages/home-page.html"&gt;
       &lt;home-page&gt;
         #shadow-root
         &lt;core-toolbar cross-fade&gt;Home&lt;/core-toolbar&gt;
         &lt;p&gt;Home page!&lt;/p&gt;
       &lt;/home-page&gt;
     &lt;/app-route&gt;
-    &lt;app-route path="/demo" imp="../../../packages/app_router_dart_test/pages/demo-page.html"&gt;
+    &lt;app-route path="/demo" imp="../../../packages/app_router_test/pages/demo-page.html"&gt;
       &lt;!-- empty until you navigate to /demo --&gt;
     &lt;/app-route&gt;
   &lt;/core-animated-pages&gt;
