@@ -30,12 +30,12 @@
 
     <p>Warning: hero transitions on large amounts of text can slow the page to a crawl. Other transitions work fine.</p>
 
-    <p>Include the <code-snippet>core-animated-pages</code-snippet> attribute on the <code-snippet>&lt;app-router&gt;</code-snippet> and define the <code-snippet>transitions</code-snippet> you want to use.</p>
+    <p>Include the <code-snippet>core_animated_pages</code-snippet> attribute on the <code-snippet>&lt;app-router&gt;</code-snippet> and define the <code-snippet>transitions</code-snippet> you want to use.</p>
 
 <code-block>&lt;link rel="import" href="/bower_components/polymer/polymer.html"&gt;
 &lt;link rel="import" href="/bower_components/core-animated-pages/core-animated-pages.html"&gt;
 
-&lt;app-router core-animated-pages transitions="hero-transition cross-fade"&gt;
+&lt;app-router core_animated_pages transitions="hero-transition cross-fade"&gt;
   &lt;app-route path="/home" imp="../../../packages/app_router_test/pages/home-page.html"&gt;&lt;/app-route&gt;
   &lt;app-route path="/demo" imp="../../../packages/app_router_test/pages/demo-page.html"&gt;&lt;/app-route&gt;
 &lt;/app-router&gt;</code-block>
@@ -66,7 +66,7 @@
 
     <p>The <code-snippet>&lt;app-router&gt;</code-snippet> contains a <code-snippet>&lt;core-animated-pages&gt;</code-snippet> in it's shadow DOM. Each <code-snippet>&lt;app-route&gt;</code-snippet> is a page. When you navigate to a route it's content is loaded inside the <code-snippet>&lt;app-route&gt;</code-snippet> element. The previous example looks like this when it's wired up.</p>
 
-<code-block>&lt;app-router core-animated-pages transitions="hero-transition cross-fade"&gt;
+<code-block>&lt;app-router core_animated_pages transitions="hero-transition cross-fade"&gt;
   #shadow-root
   &lt;core-animated-pages transitions="hero-transition cross-fade"&gt;
     &lt;!-- light DOM --&gt;
