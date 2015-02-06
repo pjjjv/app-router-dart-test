@@ -6,6 +6,6 @@ Mostly auto-generated Dart translation of tests of app-router-dart that are comp
 
 This is still EXPERIMENTAL and untested.
 
-See a demo and documentation at https://pjjjv.github.io/app-router-test/demo.html.
+See a demo and documentation at https://pjjjv.github.io/app-router-dart-test/demo.html.
 
 By pjv <ezelspinguin@gmail.com>. Original author is Erik Ringsmuth <erik.ringsmuth@gmail.com>.
