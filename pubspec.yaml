@@ -1,5 +1,5 @@
 name: app_router_test
-version: 0.1.0+2
+version: 0.1.1
 author: pjv <ezelspinguin@gmail.com>
 description: Tests, demo and documentation for app-router. Original author is Erik Ringsmuth <erik.ringsmuth@gmail.com>.
 homepage: https://github.com/pjjjv/app-router-dart-test
@@ -13,7 +13,7 @@ dependencies:
   pushstate_anchor: ">=0.1.0 <0.2.0"
 #    path: ../pushstate_anchor_dart
 dev_dependencies:
-  unittest: any
+  unittest: ">=0.11.5 <0.12.0"
 transformers:
 - polymer:
     entry_points:
