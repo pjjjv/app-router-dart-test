@@ -1,0 +1,193 @@
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+  content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+<title>RouteUri-test</title>
+
+<!--<script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="packages/polymer/polymer.html">-->
+
+<!-- Step 1: import the element to test -->
+<link rel="import" href="packages/app_router/app_router.html">
+</head>
+<body>
+
+  <!-- You use the document as a place to set up your fixtures. -->
+  <app-router mode="hash"> </app-router>
+
+  <script type="application/dart">
+    import 'dart:html';
+    import 'package:app_router/app_router.dart';
+    import 'package:polymer/polymer.dart';
+    import 'package:unittest/unittest.dart';
+
+    var myEl = document.querySelector('app-router');
+
+    main(){
+      initPolymer();
+
+      group("<app-router>", () {
+        test('should parse a regular path when mode="auto"', () {
+          expect(new RouteUri.parse('http://domain.com/example/path', 'auto').toMap(), {
+            'path': '/example/path',
+            'hash': '',
+            'search': '',
+            'isHashPath': false
+            });
+        });
+
+         test('should parse a regular path and search when mode="auto"', () {
+           expect(new RouteUri.parse('http://domain.com/example/path?queryParam=true', 'auto').toMap(), {
+         'path': '/example/path',
+         'hash': '',
+         'search': '?queryParam=true',
+         'isHashPath': false
+         });
+         });
+         test('should use the regular path on a url with a hash not starting in #/ when mode="auto"', () {
+         expect(new RouteUri.parse('http://domain.com/example/path#hash', 'auto').toMap(), {
+         'path': '/example/path',
+         'hash': '#hash',
+         'search': '',
+         'isHashPath': false
+         });
+         });
+         test('should parse a hash path when mode="auto"', () {
+         expect(new RouteUri.parse('http://domain.com/#/example/path', 'auto').toMap(), {
+         'path': '/example/path',
+         'hash': '',
+         'search': '',
+         'isHashPath': true
+         });
+         });
+         test('should parse the search on a hash path', () {
+         expect(new RouteUri.parse('http://domain.com/#/example/path?queryParam=true', 'auto').toMap(), {
+         'path': '/example/path',
+         'hash': '',
+         'search': '?queryParam=true',
+         'isHashPath': true
+         });
+         });
+         test('should parse a hashbang path when mode="auto"', () {
+         expect(new RouteUri.parse('http://domain.com/#!/example/path?queryParam=true', 'auto').toMap(), {
+         'path': '/example/path',
+         'hash': '',
+         'search': '?queryParam=true',
+         'isHashPath': true
+         });
+         });
+         test('should use the hash path and hash search when there is both a regular path and a hash path and mode="auto"', () {
+         expect(new RouteUri.parse('http://domain.com/other/path?queryParam2=false#/example/path?queryParam1=true', 'auto').toMap(), {
+         'path': '/example/path',
+         'hash': '',
+         'search': '?queryParam1=true',
+         'isHashPath': true
+         });
+         });
+         test('should return the hashbang path when there is both a path and a hashbang path', () {
+         expect(new RouteUri.parse('http://domain.com/other/path?queryParam2=false#!/example/path?queryParam1=true', 'auto').toMap(), {
+         'path': '/example/path',
+         'hash': '',
+         'search': '?queryParam1=true',
+         'isHashPath': true
+         });
+         });
+         test('should use the real path when mode="pushstate"', () {
+         expect(new RouteUri.parse('http://domain.com/#/hash/path', 'pushstate').toMap(), {
+         'path': '/',
+         'hash': '#/hash/path',
+         'search': '',
+         'isHashPath': false
+         });
+         expect(new RouteUri.parse('http://domain.com/regular/path#/hash/path', 'pushstate').toMap(), {
+         'path': '/regular/path',
+         'hash': '#/hash/path',
+         'search': '',
+         'isHashPath': false
+         });
+         });
+         test('should use the hash as the path when mode="hash" even if it doesn\'t start with #/ or #!/', () {
+         expect(new RouteUri.parse('http://domain.com/regular/path#hash/path', 'hash').toMap(), {
+         'path': 'hash/path',
+         'hash': '',
+         'search': '',
+         'isHashPath': true
+         });
+         });
+         test('should not use the regular path when mode="hash"', () {
+         expect(new RouteUri.parse('http://domain.com/test/', 'hash').toMap(), {
+         'path': '/',
+         'hash': '',
+         'search': '',
+         'isHashPath': true
+         });
+         expect(new RouteUri.parse('http://domain.com/test/index.html', 'hash').toMap(), {
+         'path': '/',
+         'hash': '',
+         'search': '',
+         'isHashPath': true
+         });
+         });
+         test('should parse the hash when mode="pushstate"', () {
+         expect(new RouteUri.parse('http://domain.com/regular/path?queryParam1=true#first', 'pushstate').toMap(), {
+         'path': '/regular/path',
+         'hash': '#first',
+         'search': '?queryParam1=true',
+         'isHashPath': false
+         });
+         });
+         test('should parse the hash when mode="auto" and the hash does not start with a #/ or #!/', () {
+         expect(new RouteUri.parse('http://domain.com/regular/path?queryParam1=true#first', 'auto').toMap(), {
+         'path': '/regular/path',
+         'hash': '#first',
+         'search': '?queryParam1=true',
+         'isHashPath': false
+         });
+         });
+         test('should parse the hash when mode="auto" and the hash starts with a #/ or #!/', () {
+         expect(new RouteUri.parse('http://domain.com/#/hash/path#first', 'auto').toMap(), {
+         'path': '/hash/path',
+         'hash': '#first',
+         'search': '',
+         'isHashPath': true
+         });
+         expect(new RouteUri.parse('http://domain.com/#/hash/path?queryParam1=true#first', 'auto').toMap(), {
+         'path': '/hash/path',
+         'hash': '#first',
+         'search': '?queryParam1=true',
+         'isHashPath': true
+         });
+         });
+         test('should parse the hash when mode="hash"', () {
+         expect(new RouteUri.parse('http://domain.com//#/hash/path#first', 'hash').toMap(), {
+         'path': '/hash/path',
+         'hash': '#first',
+         'search': '',
+         'isHashPath': true
+         });
+         expect(new RouteUri.parse('http://domain.com//#/hash/path?queryParam1=true#first', 'hash').toMap(), {
+         'path': '/hash/path',
+         'hash': '#first',
+         'search': '?queryParam1=true',
+         'isHashPath': true
+         });
+         });
+      });
+    }
+  </script>
+  <script src="packages/browser/dart.js"></script>
+
+  <!--<script type="application/dart">export 'package:polymer/init.dart';</script>-->
+</body>
+</html>

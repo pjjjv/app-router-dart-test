@@ -8,10 +8,14 @@ dependencies:
   core_elements: ">=0.6.0+1 <0.7.0"
   polymer: ">=0.15.3+2 <0.16.0"
   app_router: ">=0.1.0 <0.2.0"
+#  app_router:
 #    path: ../app_router_dart
   pushstate_anchor: ">=0.1.0 <0.2.0"
 #    path: ../pushstate_anchor_dart
+dev_dependencies:
+  unittest: any
 transformers:
 - polymer:
     entry_points:
     - web/demo.html
+    - test/RouteUri-test.html
