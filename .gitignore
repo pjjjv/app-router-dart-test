@@ -2,20 +2,17 @@
 .buildlog
 pubspec.yaml~
 .gitignore~
-web/index.html____
-.bowerrc
-bower.json
 
 # Don¡¯t commit the following directories created by pub.
 build/
-packages/
 
-# Or the files created by dart2js.
-*.dart.js
+# Or the temporary files created by dart2js.
 *.dart.precompiled.js
 *.js_
 *.js.deps
 *.js.map
+*._data
+*._buildLogs*
 
 # Include when developing application packages.
 pubspec.lock

@@ -1,0 +1,62 @@
+<!--
+    App Router Test - dart
+    Copyright (c) 2015 pjv
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<link rel="import" href="../../../packages/polymer/polymer.html">
+    <link rel="import" href="../../../packages/core_elements/core_icons.html">
+    <link rel="import" href="../../../packages/core_elements/core_toolbar.html">
+    <link rel="import" href="../../../packages/core_elements/core_item.html">
+    <link rel="import" href="../../../packages/core_elements/social_icons.html">
+    <link rel="import" href="../../../packages/core_elements/core_style.html">
+    <link rel="import" href="../../../packages/pushstate_anchor/pushstate_anchor.html">
+<link rel="import" href="../../../packages/app_router_test/css/core-style.html">
+
+<polymer-element name="simple-layout" noscript>
+  <template>
+    <core-style ref="layout"></core-style>
+    <style>
+      :host /deep/ core-toolbar {
+        font-size: 1em;
+      }
+      :host /deep/ core-toolbar span {
+        font-size: 1.3em;
+      }
+      :host /deep/ core-toolbar core-item {
+        line-height: 40px;
+      }
+      :host /deep/ core-toolbar core-item:hover,
+      :host /deep/ core-toolbar core-item:focus {
+        text-shadow: 0px 1px 2px #215b90;
+      }
+    </style>
+    <core-toolbar>
+      <span flex>
+        <content select=".title"></content>
+      </span>
+      <core-item icon="home" label="Home"><a is="pushstate-anchor" href="../../../#/"></a></core-item>
+      <core-item icon="settings" label="API"><a is="pushstate-anchor" href="../../../#/api"></a></core-item>
+      <core-item icon="polymer" label="Data Binding"><a is="pushstate-anchor" href="../../../#/databinding/1337?queryParam1=Routing%20with%20Web%20Components!"></a></core-item>
+      <core-item icon="view-quilt" label="Multiple Layouts"><a is="pushstate-anchor" href="../../../#/layouts"></a></core-item>
+      <core-item icon="info-outline" label="Notes"><a is="pushstate-anchor" href="../../../#/notes"></a></core-item>
+      <core-item icon="drive-document" label="Example Code"><a href="https://github.com/erikringsmuth/app-router-examples"></a></core-item>
+      <core-item icon="social:post-github" label="GitHub"><a href="https://github.com/erikringsmuth/app-router"></a></core-item>
+    </core-toolbar>
+    <div class="content">
+      <content></content>
+    </div>
+  </template>
+</polymer-element>

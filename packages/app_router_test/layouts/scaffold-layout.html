@@ -1,0 +1,89 @@
+
+<!--
+    App Router Test - dart
+    Copyright (c) 2015 pjv
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!--<link rel="import" href="../../../packages/polymer/polymer.html">-->
+    <link rel="import" href="../../../packages/core_elements/core_scaffold.html">
+    <link rel="import" href="../../../packages/core_elements/core_header_panel.html">
+    <link rel="import" href="../../../packages/core_elements/core_toolbar.html">
+    <link rel="import" href="../../../packages/core_elements/core_item.html">
+    <link rel="import" href="../../../packages/core_elements/social_icons.html">
+    <link rel="import" href="../../../packages/core_elements/hardware_icons.html">
+    <link rel="import" href="../../../packages/core_elements/core_style.html">
+    <link rel="import" href="../../../packages/pushstate_anchor/pushstate_anchor.html">
+
+<link rel="import" href="../../../packages/app_router_test/css/core-style.html">
+
+<polymer-element name="scaffold-layout" attributes="selected color" noscript>
+  <template>
+    <core-style ref="layout"></core-style>
+    <style>
+      core-toolbar {
+        background-color: #2f83d0;
+        color: #fff;
+        border-bottom: 1px solid #ddd;
+      }
+      .content {
+        padding: 5px 20px 40px 20px;
+      }
+      :host /deep/ core-header-panel[main] {
+        background-color: #fff;
+      }
+      core-header-panel {
+        background-color: #fff;
+      }
+      core-header-panel core-item {
+        padding: 2px 12px;
+        line-height: 40px;
+      }
+      core-header-panel core-item:not(:first-of-type) {
+        border-top: 1px solid #f5f5f5;
+      }
+      core-header-panel core-item:hover,
+      core-header-panel core-item:focus {
+        background-color: #fcfcfc;
+        color: #222;
+      }
+      core-header-panel core-item[active] {
+        border-right: 6px solid #f5f5f5;
+      }
+    </style>
+    <core-scaffold>
+      <core-header-panel navigation flex mode="seamed">
+        <core-toolbar class="{{color}}">&lt;app-router&gt;</core-toolbar>
+        <div>
+          <core-item icon="home" label="Home" active?="{{selected == 'home'}}"><a is="pushstate-anchor" href="../../../#/"></a></core-item>
+          <core-item icon="settings" label="API" active?="{{selected == 'api'}}"><a is="pushstate-anchor" href="../../../#/api"></a></core-item>
+          <core-item icon="polymer" label="Data Binding" active?="{{selected == 'databinding'}}"><a is="pushstate-anchor" href="../../../#/databinding/1337?queryParam1=Routing%20with%20Web%20Components!"></a></core-item>
+          <core-item icon="hardware:phonelink" label="Layouts" active?="{{selected == 'layouts'}}"><a is="pushstate-anchor" href="../../../#/layouts"></a></core-item>
+          <core-item icon="hardware:mouse" label="Lifecycle Events" active?="{{selected == 'events'}}"><a is="pushstate-anchor" href="../../../#/events"></a></core-item>
+          <core-item icon="swap-horiz" label="core-animated-pages" active?="{{selected == 'core-animated-pages'}}"><a is="pushstate-anchor" href="../../../#/core-animated-pages"></a></core-item>
+          <core-item icon="info-outline" label="Notes" active?="{{selected == 'notes'}}"><a is="pushstate-anchor" href="../../../#/notes"></a></core-item>
+          <core-item icon="subject" label="Example Code"><a href="https://github.com/erikringsmuth/app-router-examples"></a></core-item>
+          <core-item icon="social:post-github" label="GitHub"><a href="https://github.com/erikringsmuth/app-router"></a></core-item>
+        </div>
+      </core-header-panel>
+      <div tool>
+        <content select=".title"></content>
+      </div>
+      <div class="content">
+        <content></content>
+      </div>
+    </core-scaffold>
+  </template>
+</polymer-element>
